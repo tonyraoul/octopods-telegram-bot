@@ -157,6 +157,7 @@ GEM
       execjs
       railties (>= 3.2)
       tilt
+    redis (4.2.1)
     regexp_parser (1.7.1)
     rspec-core (3.9.2)
       rspec-support (~> 3.9.3)
@@ -237,6 +238,7 @@ DEPENDENCIES
   rails (~> 6.0.3, >= 6.0.3.2)
   rails-static-router
   react-rails
+  redis (~> 4.0)
   rspec-rails
   selenium-webdriver
   spring
