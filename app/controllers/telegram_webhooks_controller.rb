@@ -13,7 +13,8 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       text: message['text'],
       message_id: message['message_id'],
       user_id: message['from']['id'],
-      date: message['date']
+      date: message['date'],
+      is_reply: false
     )
     new_message.chat = chat
     new_message.save

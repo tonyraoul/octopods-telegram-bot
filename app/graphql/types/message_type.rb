@@ -5,6 +5,7 @@ module Types
     field :chat_id, String, null: true
     field :date, Integer, null: true
     field :text, String, null: true
+    field :is_reply, Boolean, null: true
     field :created_at, GraphQL::Types::ISO8601DateTime, null: false
     field :updated_at, GraphQL::Types::ISO8601DateTime, null: false
   end
