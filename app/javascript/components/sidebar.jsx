@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { SET_ACTIVE_CHAT } from '../redux/actionTypes'
 
 const StyledSideBar = styled.div`
-background-color: red;
+background-color: #ccc;
 width: 300px;
 height: 100%;
 `
@@ -37,7 +37,9 @@ const Chat = ({ name, active, id}) => {
 }
 
 const Chats = () => {
-    const { loading, error, data } = useQuery(ChatsQuery);
+    const { loading, error, data } = useQuery(ChatsQuery, {
+      pollInterval: 500,
+    });
     const activeChat = useSelector(state => state.chats.activeChat)
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error :(</p>;

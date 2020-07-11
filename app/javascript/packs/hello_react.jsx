@@ -6,6 +6,7 @@ import ApolloClient from 'apollo-boost'
 import { ApolloProvider } from '@apollo/react-hooks'
 import { Provider } from 'react-redux'
 import store from '../redux/store'
+import ChatArea from '../components/chat_area'
 
 const client = new ApolloClient({
   uri: 'http://localhost:3000/graphql',
@@ -21,7 +22,8 @@ const AppContainer = styled.div`
 const App = () => <ApolloProvider client={client}>
   <Provider store={store}>
     <AppContainer>
-      <SideBar></SideBar>
+      <SideBar />
+      <ChatArea />
     </AppContainer>
   </Provider>
 </ApolloProvider>
