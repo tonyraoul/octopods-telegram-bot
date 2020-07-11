@@ -3,16 +3,28 @@ import styled from 'styled-components'
 import { useQuery } from '@apollo/react-hooks'
 import { gql } from 'apollo-boost'
 import { useSelector } from 'react-redux'
+import MessageSender from './message_sender'
 
-const StyledChatArea = styled.div`
+const StyledMessagesContainer = styled.div`
   width: 100%;
+  height: 100%;
+  padding: 50px;
   background-color: #eee;
   overflow-y: scroll;
+  max-height: 100%;
   overscroll-behavior-y: contain;
   scroll-snap-type: y mandatory;
   & > div:last-child {
     scroll-snap-align: end;
   }
+  box-sizing: border-box;
+`
+
+const StyledChatArea = styled.div`
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 `
 const MessagesQuery = gql`
 query messages($chatId: ID!){
@@ -38,9 +50,11 @@ const ChatArea = () => {
     pollInterval: 500,
   })
   if(loading) return <p>loading...</p>
-  if(error) return <p>error :(</p>
   return <StyledChatArea>
-    {data.messages.map(message => <StyledMessage key={message.id}>{message.text}</StyledMessage>)}
+     <StyledMessagesContainer>
+      {!error && data.messages.map(message => <StyledMessage key={message.id}>{message.text}</StyledMessage>)}
+     </StyledMessagesContainer>
+     <MessageSender />
   </StyledChatArea>
 }
 
