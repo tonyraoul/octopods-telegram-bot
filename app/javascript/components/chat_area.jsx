@@ -18,6 +18,8 @@ const StyledMessagesContainer = styled.div`
     scroll-snap-align: end;
   }
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
 `
 
 const StyledChatArea = styled.div`
@@ -30,7 +32,8 @@ const MessagesQuery = gql`
 query messages($chatId: ID!){
     messages(chatId: $chatId) {
         text,
-        id
+        id,
+        isReply
     }
 }
 `
@@ -40,7 +43,12 @@ const StyledMessage = styled.div`
   width: fit-content;
   border-radius: 10px;
   margin: 10px;
+  align-self: flex-start;
   padding: 20px;
+  &.reply {
+    background-color: #c6e0ea;
+    align-self: flex-end;
+  }
 `
 
 const ChatArea = () => {
@@ -52,7 +60,7 @@ const ChatArea = () => {
   if(loading) return <p>loading...</p>
   return <StyledChatArea>
      <StyledMessagesContainer>
-      {!error && data.messages.map(message => <StyledMessage key={message.id}>{message.text}</StyledMessage>)}
+      {!error && data.messages.map(message => <StyledMessage className={message.isReply ? 'reply' : ''} key={message.id}>{message.text}</StyledMessage>)}
      </StyledMessagesContainer>
      <MessageSender />
   </StyledChatArea>

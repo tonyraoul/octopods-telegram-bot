@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { useCallback, useState } from 'react'
 import styled from 'styled-components'
 import { useSelector } from 'react-redux'
+import { useMutation } from '@apollo/react-hooks'
+import { gql } from 'apollo-boost'
 
 const StyledContainer = styled.div`
   background-color: #CDCDCD;
@@ -26,11 +28,25 @@ const StyledButton = styled.button`
   }
 `
 
+const BOT_REPLY_MUTATION = gql`
+  mutation botReply($text: String!, $chatId: Int!) {
+    botReply(text: $text, chatId: $chatId) {
+      id
+    }
+  }
+`
+
 const Container = () => {
+  const [text, setText] = useState('')
+  const [botReply] = useMutation(BOT_REPLY_MUTATION)
   const activeChat = useSelector(state => state.chats.activeChat) || 0
+  const reply = useCallback(() => {
+      botReply({ variables: { text, chatId: parseInt(activeChat) }})
+      setText('')
+  })
   return (<StyledContainer>
-      <textarea placeholder={activeChat ? 'Start typing here..' : 'Please select a chat'} ></textarea>
-      <StyledButton disabled={!activeChat}>Send</StyledButton>
+      <textarea value={text} onChange={e => setText(e.target.value)} placeholder={activeChat ? 'Start typing here..' : 'Please select a chat'} ></textarea>
+      <StyledButton onClick={reply} disabled={!activeChat}>Send</StyledButton>
   </StyledContainer>)
 }
 
