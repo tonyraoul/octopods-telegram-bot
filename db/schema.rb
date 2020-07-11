@@ -10,7 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_10_124905) do
+ActiveRecord::Schema.define(version: 2020_07_10_155521) do
+
+  create_table "chats", force: :cascade do |t|
+    t.boolean "closed", default: false
+    t.boolean "archived", default: false
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "messages", force: :cascade do |t|
     t.integer "message_id"

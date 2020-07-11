@@ -4,13 +4,18 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   end
 
   def message(message)
-    # Save messages to database
-    Message.create(
+    # Create or update chat in database
+    chat = Chat.where(id: message['chat']['id']).first_or_initialize.tap do |chat|
+      chat.name = message['chat']['first_name'] + ' ' + message['chat']['last_name']
+      chat.save
+    end
+    new_message = Message.new(
       text: message['text'],
       message_id: message['message_id'],
-      chat_id: message['chat']['id'],
       user_id: message['from']['id'],
       date: message['date']
     )
+    new_message.chat = chat
+    new_message.save
   end
 end
