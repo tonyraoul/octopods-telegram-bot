@@ -1,0 +1,12 @@
+#!/usr/bin/env ruby
+
+def system!(*args)
+  system(*args) || abort("\n== Command #{args} failed ==")
+end
+
+puts "=== setup ==="
+system! "bin/setup"
+puts "=== run poller in background"
+Process.fork { system "bin/rake telegram:bot:poller" }
+puts "=== run application server"
+system! "bin/rails s -b 0.0.0.0"
