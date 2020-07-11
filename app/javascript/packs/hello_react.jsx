@@ -1,26 +1,30 @@
-// Run this example by adding <%= javascript_pack_tag 'hello_react' %> to the head of your layout file,
-// like app/views/layouts/application.html.erb. All it does is render <div>Hello React</div> at the bottom
-// of the page.
-
 import React from 'react'
 import ReactDOM from 'react-dom'
-import PropTypes from 'prop-types'
+import styled from 'styled-components'
+import SideBar from '../components/sidebar'
+import ApolloClient from 'apollo-boost'
+import { ApolloProvider } from '@apollo/react-hooks'
 
-const Hello = props => (
-  <div>Hello {props.name}!</div>
-)
+const client = new ApolloClient({
+  uri: 'http://localhost:3000/graphql',
+})
 
-Hello.defaultProps = {
-  name: 'David'
-}
+const AppContainer = styled.div`
+  width: 100%;
+  height: 100vh;
+  display: flex;
+`
 
-Hello.propTypes = {
-  name: PropTypes.string
-}
+
+const App = () => <ApolloProvider client={client}>
+  <AppContainer>
+    <SideBar></SideBar>
+  </AppContainer>
+</ApolloProvider>
 
 document.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render(
-    <Hello name="React" />,
+    <App />,
     document.body.appendChild(document.createElement('div')),
   )
 })
