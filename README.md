@@ -37,9 +37,9 @@ Fullstack ruby task for octopods.
   rspec
 ```
 
-### Area that needs Improvement
-- [] Make the app realtime with graphql subscriptions/Action cable implementation.
-- [] Write more tests.
-- [] Improve Design.
-- [] Enable authentication.
-- [] Add SSL certificate to replace poller with webhooks.
+### Areas that need Improvements
+- [ ] Make the app realtime with graphql subscriptions/Action cable implementation.
+- [ ] Write more tests.
+- [ ] Improve Design.
+- [ ] Enable authentication.
+- [ ] Add SSL certificate to replace poller with webhooks.
