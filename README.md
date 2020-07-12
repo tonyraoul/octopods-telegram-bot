@@ -3,6 +3,9 @@
 ### Description
 Fullstack ruby task for octopods.
 
+### Warning
+Application is not production ready, for demonstration purposes only.
+
 #### Setup
 - Retrive new bot username and token from telegram with [@botFather](https://telegram.me/BotFather)
 - run
