@@ -1,24 +1,45 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+### Description
+Fullstack ruby task for octopods.
 
-Things you may want to cover:
+#### Setup
+- Retrive new bot username and token from telegram with [@botFather](https://telegram.me/BotFather)
+- run
+```
+   ./bin/rails credentials:edit --environment development
+```
+- Add your tokens as the following format
+```
+   telegram:
+    bot:
+      token: TOKEN
+      username: SomeBot
+```
 
-* Ruby version
+#### Run locally with docker
+```
+  docker-compose up --build
+```
 
-* System dependencies
+#### Run natively
+```
+  ./bin/run
+```
 
-* Configuration
+#### Testing
+- Setup all dependencies and bundles
+```
+  ./bin/setup
+```
+- Run rspec test suite
+```
+  rspec
+```
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+### Area that needs Improvement
+- [] Make the app realtime with graphql subscriptions/Action cable implementation.
+- [] Write more tests.
+- [] Improve Design.
+- [] Enable authentication.
+- [] Add SSL certificate to replace poller with webhooks.
