@@ -23,9 +23,8 @@ Fullstack ruby task for octopods.
 ```
 
 #### Run natively
-```
-  ./bin/run
-```
+- Make sure that redis is running on `localhost:6379/1`
+- run `./bin/run` command
 
 #### Testing
 - Setup all dependencies and bundles
