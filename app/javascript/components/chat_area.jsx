@@ -28,12 +28,16 @@ const StyledChatArea = styled.div`
   display: flex;
   flex-direction: column;
 `
+const MessageFragment = `
+  text,
+  id,
+  isReply
+`
+
 const MessagesQuery = gql`
 query messages($chatId: ID!){
     messages(chatId: $chatId) {
-        text,
-        id,
-        isReply
+        ${MessageFragment}
     }
 }
 `
@@ -50,12 +54,33 @@ const StyledMessage = styled.div`
     align-self: flex-end;
   }
 `
-
+const subscribeToMoreQuery = gql`
+subscription newMessages($chatId: ID!) {
+  newMessage(chatId: $chatId) {
+    ${MessageFragment}
+  }
+ }`
+ console.log(subscribeToMoreQuery)
 const ChatArea = () => {
   const activeChat = useSelector(state => state.chats.activeChat) || 0
-  const { loading, error, data } = useQuery(MessagesQuery,
+  const { loading, error, data, subscribeToMore } = useQuery(MessagesQuery,
     { variables: { chatId: activeChat },
-    pollInterval: 500,
+  })
+  subscribeToMore({
+    document: subscribeToMoreQuery,
+    variables: {
+     chatId: activeChat
+    },
+    updateQuery: (prev, { subscriptionData }) => {
+        if (!subscriptionData.data) return prev
+
+        const newMessage = subscriptionData.data.newMessage
+
+        return Object.assign({}, prev, {
+          messages: [...prev.messages.filter(({id}) => id !== newMessage.id ), newMessage],
+          __typename: prev.messages.__typename
+        })
+    }
   })
   if(loading) return <p>loading...</p>
   return <StyledChatArea>

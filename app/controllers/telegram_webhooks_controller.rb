@@ -18,5 +18,6 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     )
     new_message.chat = chat
     new_message.save
+    OctopodsSchema.subscriptions.trigger("newMessage", { chatId: chat.id } , new_message)
   end
 end

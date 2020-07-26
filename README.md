@@ -3,9 +3,6 @@
 ### Description
 Fullstack ruby task for octopods.
 
-### Warning
-Application is not production ready, for demonstration purposes only.
-
 #### Setup
 - Retrive new bot username and token from telegram with [@botFather](https://telegram.me/BotFather)
 - run
@@ -40,9 +37,9 @@ Application is not production ready, for demonstration purposes only.
   rspec
 ```
 
-### Areas that need Improvements
-- [ ] Make the app realtime with graphql subscriptions/Action cable implementation.
-- [ ] Write more tests.
-- [ ] Improve Design.
-- [ ] Enable authentication.
-- [ ] Add SSL certificate to replace poller with webhooks.
+### Area that needs Improvement
+- [x] Make the app realtime with graphql subscriptions/Action cable implementation. (Added on 27 July 2020)
+- [] Write more tests.
+- [] Improve Design.
+- [] Enable authentication.
+- [] Add SSL certificate to replace poller with webhooks.
