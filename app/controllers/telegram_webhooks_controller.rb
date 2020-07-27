@@ -8,6 +8,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     chat = Chat.where(id: message['chat']['id']).first_or_initialize.tap do |chat|
       chat.name = message['chat']['first_name'] + ' ' + message['chat']['last_name']
       chat.save
+      OctopodsSchema.subscriptions.trigger("newChat", {} , chat)
     end
     new_message = Message.new(
       text: message['text'],

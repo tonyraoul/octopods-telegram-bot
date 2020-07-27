@@ -26,6 +26,13 @@ query {
     }
 }
 `
+const subscribeToMoreQuery = gql`
+subscription {
+  newChat {
+    name,
+    id
+  }
+ }`
 
 const Chat = ({ name, active, id}) => {
   const dispatch = useDispatch()
@@ -37,10 +44,21 @@ const Chat = ({ name, active, id}) => {
 }
 
 const Chats = () => {
-    const { loading, error, data } = useQuery(ChatsQuery, {
-      pollInterval: 500,
-    });
+    const { loading, error, data, subscribeToMore } = useQuery(ChatsQuery);
     const activeChat = useSelector(state => state.chats.activeChat)
+    subscribeToMore({
+      document: subscribeToMoreQuery,
+      updateQuery: (prev, { subscriptionData }) => {
+        if (!subscriptionData.data) return prev
+
+        const newChat = subscriptionData.data.newChat
+
+        return Object.assign({}, prev, {
+          chats: [...prev.chats.filter(({id}) => id !== newChat.id ), newChat],
+          __typename: prev.chats.__typename
+        })
+      }
+    })
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error :(</p>;
     return <div>
