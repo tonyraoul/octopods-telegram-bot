@@ -38,7 +38,8 @@ Fullstack ruby task for octopods.
 
 ### Area that needs Improvement
 - [x] Make the app realtime with graphql subscriptions/Action cable implementation. (Added on 27 July 2020)
-- [ ] Add unread messages counter
+- [ ] Add unread messages counter.
+- [ ] Paginate chat.
 - [ ] Write more tests.
 - [ ] Improve Design.
 - [ ] Enable authentication.
